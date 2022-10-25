@@ -12,7 +12,7 @@ from model.dcrnn_supervisor import DCRNNSupervisor
 
 def main(args):
     with open(args.config_filename) as f:
-        supervisor_config = yaml.load(f)
+        supervisor_config = yaml.full_load(f)
 
         graph_pkl_filename = supervisor_config['data'].get('graph_pkl_filename')
         sensor_ids, sensor_id_to_ind, adj_mx = load_graph_data(graph_pkl_filename)

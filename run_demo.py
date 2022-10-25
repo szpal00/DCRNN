@@ -11,7 +11,7 @@ from model.dcrnn_supervisor import DCRNNSupervisor
 
 def run_dcrnn(args):
     with open(args.config_filename) as f:
-        config = yaml.load(f)
+        config = yaml.full_load(f)
     tf_config = tf.ConfigProto()
     if args.use_cpu_only:
         tf_config = tf.ConfigProto(device_count={'GPU': 0})
