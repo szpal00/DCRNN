@@ -37,7 +37,7 @@ def train(model, optimizer, batch_size, trainset, current_epoch, device = torch.
             model.init_hidden(batch_size)
         predictions = model(x)
         loss = loss_function(predictions, y)
-        scores = [loss, mse(predictions, y), torch.sqrt(mse(predictions, y)), mape(predictions, y)]
+        scores = [loss.detach().item(), mse(predictions, y).detach().item(), torch.sqrt(mse(predictions, y)).detach().item(), mape(predictions, y).detach().item()]        
         metric_scores = [metric_scores[j]+scores[j] for j in range(4)]
         loss.backward()
         optimizer.step()
@@ -76,7 +76,7 @@ def evaluate(model, optimizer, batch_size, testset,current_epoch, device = torch
             predictions=torch.cat((scaled_tmp, tmp2), 2)
         predictions = model(x)
         loss = loss_function(predictions, y)
-        scores = [loss, mse(predictions, y), torch.sqrt(mse(predictions, y)), mape(predictions, y)]
+        scores = [loss.detach().item(), mse(predictions, y).detach().item(), torch.sqrt(mse(predictions, y)).detach().item(), mape(predictions, y).detach().item()]
         metric_scores = [metric_scores[j]+scores[j] for j in range(4)]
         test_loss += loss.detach().item()
     test_loss = test_loss / (i+1)
